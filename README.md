@@ -1,5 +1,6 @@
 # Portfólio Django
-![image](https://github.com/user-attachments/assets/5ff030a7-ca5f-4984-946b-958f62b8333e)
+![image](https://github.com/user-attachments/assets/11829f45-6ca2-4fbd-8877-6737cadd9692)
+
 
 
 Portfólio profissional desenvolvido com Django.
