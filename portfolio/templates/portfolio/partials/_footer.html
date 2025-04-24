@@ -1,0 +1,29 @@
+<footer class="bg-dark text-white pt-3 pb-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <h5 class="text-uppercase mb-2 footer-title">About me</h5>  <!-- Adicionei hover-glow -->
+                <p class="small">Estudante de análise e desenvolvimento de sistemas apaixonado por Python e Django</p>
+            </div>
+            <div class="col-md-3 mb-2">
+                <h5 class="text-uppercase mb-2 footer-title">Contact</h5>  <!-- Adicionei hover-glow -->
+                <ul class="list-unstyled small">
+                    <li class="mb-1"><i class="bi bi-envelope me-2 text-secondary"></i> {{ profile.email }}</li>
+                    {% if profile.phone %}
+                    <li class="mb-1"><i class="bi bi-phone me-2 text-secondary"></i> {{ profile.phone }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <hr class="my-2 bg-secondary">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0 small">&copy; Developed with Python and Django by {{ profile.name }}.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="text-decoration-none me-2 small">Politics</a>
+                <a href="#" class="text-decoration-none small">Terms</a>
+            </div>
+        </div>
+    </div>
+</footer>
