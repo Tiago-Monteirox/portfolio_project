@@ -12,6 +12,7 @@ Portfólio profissional desenvolvido com Django.
 - Listagem de projetos
 - Design responsivo
 - Painel administrativo
+- Links de redirecionamento para as redes sociais
 
 ## Tecnologias
 
