@@ -1,0 +1,60 @@
+body {
+    background-color: #212529 !important;
+    color: white !important;
+}
+
+/* Garante que todos os textos sejam brancos */
+.text-dark, .text-muted, .text-body {
+    color: white !important;
+}
+
+/* Ajuste para cards */
+.card {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+.card-body, .card-footer {
+    background-color: #343a40 !important;
+}
+
+/* Links visíveis */
+a {
+    color: #6ea8fe !important;
+}
+
+a:hover {
+    color: #86b7fe !important;
+}
+
+.footer-title {
+color: #6ea8fe !important; /* mesma cor dos seus links */
+}
+
+.footer-title:hover {
+color: #86b7fe !important; /* mesma cor do hover dos links */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+        width: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+        left: -30px;
+}
+
+.carousel-control-next {
+    right: -30px;
+}
+
+@media (max-width: 768px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        left: 0;
+        right: 0;
+        width: 10%;
+    }
+}

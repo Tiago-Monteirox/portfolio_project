@@ -1,5 +1,5 @@
 {% extends 'portfolio/base.html' %}
-
+{% load batch_filter %}
 {% block content %}
 
 
@@ -51,36 +51,178 @@
     <hr class="border-secondary my-0">  <!-- my-0 remove margem vertical -->
 </div>
 
-<!-- Seção Projetos -->
-<section class="projects-section py-5">
-    <div class="container">
-        <h2 class="text-center mb-5 footer-title">Projects</h2>
-        <div class="row">
-            {% for project in projects %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    {% if project.image %}
-                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <span class="badge bg-secondary">{{ project.technology }}</span>
+<!-- Seção Experiência + Habilidades em colunas -->
+<section id="experience" class="experience-skills-section py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <!-- Coluna: Experiência Profissional -->
+      <div class="col-md-6 mb-5">
+        <h2 class="text-center mb-4 footer-title" style="font-size: 2rem;">Professional experience</h2> <!-- Aumentei a fonte -->
 
-                        {% if project.project_url %}
-                        <a href="{{ project.project_url }}" 
-                           target="_blank" 
-                           class="btn btn-primary text-white btn-sm">
-                           Ver Projeto <i class="bi bi-box-arrow-up-right text-white"></i>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+        <div class="mb-4" style="font-size: 1.1rem;"> <!-- Aumentei a fonte -->
+          <h6 style="font-size: 1.2rem;"><strong>2023 – Atualmente | Mercadão dos Óculos Araguari</strong></h6>
+          <p><strong>Cargo:</strong> Consultor Óptico</p>
+          <ul>
+            <li>Atendimento ao cliente (presencial e online)</li>
+            <li>Organização e limpeza do ambiente de trabalho</li>
+            <li>Controle de estoque</li>
+            <li>Criação de conteúdo para redes sociais</li>
+          </ul>
         </div>
-    </div>
+
+        <div class="mb-4" style="font-size: 1.1rem;">
+          <h6 style="font-size: 1.2rem;"><strong>2020 – 2021 | Mucuim Skate Shop LTDA</strong></h6>
+          <p><strong>Cargo:</strong> Vendedor</p>
+          <ul>
+            <li>Responsável por vendas na loja, Instagram, WhatsApp, e-commerce e Mercado Livre</li>
+            <li>Operação de caixa, emissão de notas fiscais, controle de estoque e limpeza da loja</li>
+            <li>Criação de conteúdo para o Instagram (stories, reels e posts)</li>
+            <li>Foco em satisfação máxima do cliente</li>
+          </ul>
+        </div>
+
+        <div class="mb-4" style="font-size: 1.1rem;">
+          <h6 style="font-size: 1.2rem;"><strong>2021 – 2022 | Mucuim Skate Shop LTDA</strong></h6>
+          <p><strong>Cargo:</strong> Gerente de Vendas</p>
+          <ul>
+            <li>Gerenciamento da equipe de vendas e mídias sociais</li>
+            <li>Campanhas de Google Ads e Facebook Ads</li>
+            <li>Operações de e-commerce e aplicação de estratégias de marketing</li>
+            <li>Especialização em SEO e geração de leads</li>
+          </ul>
+        </div>
+
+        <div class="mb-4" style="font-size: 1.1rem;">
+          <h6 style="font-size: 1.2rem;"><strong>2014 – 2015 | Colégio Objetivo Araguari</strong></h6>
+          <p><strong>Cargo:</strong> Monitor de Química</p>
+        </div>
+      </div>
+
+      <div class="col-md-6" style="font-size: 1.1rem;"> <!-- Aumentei a fonte -->
+          <h3 class="footer-title text-center mb-4" style="font-size: 2rem;">Skills</h3>
+          <ul class="list-unstyled ps-3">
+            <li>• Python Avançado</li>
+            <li>• Django Avançado (desenvolvimento de projetos reais)</li>
+            <li>• Django Rest Framework (APIs REST)</li>
+            <li>• Experiência com Pytest e testes unitários</li>
+            <li>• SQL intermediário e modelagem de banco de dados</li>
+            <li>• Frontend bootstrap (HTML, CSS e JavaScript)</li>
+            <li>• Conhecimento e prática em Git</li>
+            <li>• Criação de conteúdo para marketing digital</li>
+            <li>• Inglês fluente</li>
+            <li>• Domínio do Microsoft Office</li>
+            <li>• Facilidade em trabalho em equipe</li>
+            <li>• Comunicativo e proativo</li>
+          </ul>
+      
+          <!-- CERTIFICADOS AQUI -->
+          <h3 class="footer-title text-center mt-4 mb-4" style="font-size: 2rem;">Certificates</h3>
+          <ul class="list-unstyled ps-3">
+            <li>• Certificação em lógica de programação - Udemy</li>
+            <li>• Certificação em Inglês avançado - Fisk</li>
+            <li>• Certificação em Django REST Framework e APIs - Udemy</li>
+            <li>• Certificado de conclusão: Git e GitHub - Curso em Vídeo</li>
+            <li>• Certificado de AWS básico - Estácio</li>
+          </ul>
+        </div>
+      </div>
+  </div>
 </section>
+  
+  <!-- Linha de separação -->
+  <hr class="my-0">
+
+<!-- Seção Projetos -->
+<section id="projects" class="projects-section py-3">
+  <div class="container">
+      <h2 class="text-center mb-5 footer-title">Projects</h2>
+
+      <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+          <div class="carousel-inner">
+              {% for project_group in projects|batch:3 %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <div class="row">
+                      {% for project in project_group %}
+                      <div class="col-md-4 mb-4">
+                          <div class="card h-100 shadow-sm">
+                              {% if project.image %}
+                              <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                              {% endif %}
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ project.title }}</h5>
+                                  <p class="card-text">{{ project.description }}</p>
+                              </div>
+                              <div class="card-footer d-flex justify-content-between align-items-center">
+                                  <span class="badge bg-secondary">{{ project.technology }}</span>
+                                  {% if project.project_url %}
+                                  <a href="{{ project.project_url }}" target="_blank" class="btn btn-primary text-white btn-sm">
+                                      Ver Projeto <i class="bi bi-box-arrow-up-right text-white"></i>
+                                  </a>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+
+          {% if projects|length > 3 %}
+          <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
+          {% endif %}
+      </div>
+  </div>
+</section>
+
+<style>
+    /* Corrige posicionamento lateral */
+    #projectsCarousel .carousel-control-prev,
+    #projectsCarousel .carousel-control-next {
+        width: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2; /* Garante que fique acima de outros elementos */
+    }
+
+    /* Empurra as setas para fora da área dos cards */
+    #projectsCarousel .carousel-control-prev {
+        left: -3rem;
+    }
+
+    #projectsCarousel .carousel-control-next {
+        right: -3rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        #projectsCarousel .carousel-control-prev,
+        #projectsCarousel .carousel-control-next {
+            left: 0;
+            right: 0;
+        }
+    }
+
+    html {
+      scroll-behavior: smooth;
+  }
+  
+  /* Se quiser manter o hover-glow que você mencionou */
+  .hover-glow {
+      transition: text-shadow 0.3s ease;
+  }
+  .hover-glow:hover {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+</style>
+
+
+
 {% endblock %}
