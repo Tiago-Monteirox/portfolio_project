@@ -13,6 +13,8 @@ Portfólio profissional desenvolvido com Django.
 - Design responsivo
 - Painel administrativo
 - Links de redirecionamento para as redes sociais
+- Implementação de carroussel nos projetos.
+
 
 ## Tecnologias
 
