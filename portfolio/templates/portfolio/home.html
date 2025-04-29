@@ -1,5 +1,4 @@
 {% extends 'portfolio/base.html' %}
-{% load batch_filter %}
 {% block content %}
 
 
@@ -133,40 +132,58 @@
   <hr class="my-0">
 
 <!-- Seção Projetos -->
-<section id="projects" class="projects-section py-3">
+<section class="projects-section py-5">
   <div class="container">
       <h2 class="text-center mb-5 footer-title">Projects</h2>
 
-      <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+      <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-              {% for project_group in projects|batch:3 %}
-              <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                  <div class="row">
-                      {% for project in project_group %}
-                      <div class="col-md-4 mb-4">
-                          <div class="card h-100 shadow-sm">
-                              {% if project.image %}
-                              <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+              {% for project in projects %}
+                  {% if forloop.counter0|divisibleby:3 %}
+                  <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                      <div class="row">
+                  {% endif %}
+
+                  <div class="col-md-4 mb-4">
+                      <div class="card h-100 shadow-sm">
+                          {% if project.image %}
+                          <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                          {% endif %}
+                          <div class="card-body">
+                              <h5 class="card-title">{{ project.title }}</h5>
+                              <p class="card-text">{{ project.description }}</p>
+                          </div>
+                          <div class="card-footer d-flex justify-content-between align-items-center">
+                              <span class="badge bg-secondary">{{ project.technology }}</span>
+
+                              {% if project.project_url %}
+                              <a href="{{ project.project_url }}" target="_blank" class="btn btn-primary text-white btn-sm">
+                                See project <i class="bi bi-box-arrow-up-right text-white"></i>
+                              </a>
                               {% endif %}
-                              <div class="card-body">
-                                  <h5 class="card-title">{{ project.title }}</h5>
-                                  <p class="card-text">{{ project.description }}</p>
-                              </div>
-                              <div class="card-footer d-flex justify-content-between align-items-center">
-                                  <span class="badge bg-secondary">{{ project.technology }}</span>
-                                  {% if project.project_url %}
-                                  <a href="{{ project.project_url }}" target="_blank" class="btn btn-primary text-white btn-sm">
-                                      Ver Projeto <i class="bi bi-box-arrow-up-right text-white"></i>
-                                  </a>
-                                  {% endif %}
-                              </div>
                           </div>
                       </div>
-                      {% endfor %}
                   </div>
-              </div>
+
+                  {% if forloop.counter|divisibleby:3 or forloop.last %}
+                      </div> <!-- fecha .row -->
+                  </div> <!-- fecha .carousel-item -->
+                  {% endif %}
               {% endfor %}
           </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
+      </div>
+
+  </div>
+</section>
 
           {% if projects|length > 3 %}
           <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
